@@ -13,5 +13,5 @@
 
 - 2020 품질공학 수업 
 - Python
-- Data Crawling, Text Mining, BERT Sentiment Analysis <br>
+- Data Crawling, Text Mining, BERT Sentiment Analysis, Conjoint Analysis <br>
 [자료]
