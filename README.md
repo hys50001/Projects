@@ -14,4 +14,4 @@
 - 2020 품질공학 수업 
 - Python
 - Data Crawling, Text Mining, BERT Sentiment Analysis, Conjoint Analysis <br>
-[자료]
+[자료](https://github.com/hys50001/Projects/blob/main/2020%20%ED%92%88%EC%A7%88%EA%B3%B5%ED%95%99/%EA%B5%AD%EB%AF%BC%EC%B2%B4%EC%A1%B0_Final_Termproject.pdf)
