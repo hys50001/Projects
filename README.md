@@ -5,7 +5,7 @@
 
 - 2020 데이터마이닝 수업
 - Python, Gephi 시각화 활용
-- Data Crawling, Text Mining, Social Network Analysis
+- Data Crawling, Text Mining, Social Network Analysis <br>
 [자료]
 
 
@@ -13,5 +13,5 @@
 
 - 2020 품질공학 수업 
 - Python
-- Data Crawling, Text Mining, BERT Sentiment Analysis
+- Data Crawling, Text Mining, BERT Sentiment Analysis <br>
 [자료]
