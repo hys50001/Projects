@@ -6,7 +6,7 @@
 - 2020 데이터마이닝 수업
 - Python, Gephi 시각화 활용
 - Data Crawling, Text Mining, Social Network Analysis <br>
-[자료]
+[자료](https://github.com/hys50001/Projects/blob/main/2020%20DM/%EC%A7%80%EC%95%84%EC%9D%B4%EC%A1%B0%20Final.pdf)
 
 
 ### 2. BERT 감성분석을 활용한 서울시 도시 재생 사업 방향 제언
