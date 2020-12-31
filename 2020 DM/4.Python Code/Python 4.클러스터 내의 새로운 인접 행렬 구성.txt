@@ -1,0 +1,25 @@
+import pandas as pd
+df = pd.read_excel('C:/Users/황윤섭/Desktop/게파이 결과.xlsx')
+new_df = df[['Id', 'modularity_class']]
+a=list(new_df['modularity_class'])
+b=list(new_df['Id'])
+
+kk=dict(zip(b,a))
+
+kkk=dict()
+for key,value in kk.items():
+    if value not in kkk:
+        kkk[value]=[key]
+    else:
+        kkk[value].append(key)
+ 
+
+df1 = pd.read_excel('C:/Users/황윤섭/Desktop/중등1 행렬.xlsx')
+
+
+df1.set_index('Unnamed: 0', inplace=True)
+
+for key in kkk:
+    galexy_posts = df1.get(kkk[key])          
+    hys=pd.DataFrame(galexy_posts,index=kkk[key])
+    hys.to_excel('C:/Users/황윤섭/Desktop/'+str(key)+'번 클러스터'+'.xlsx')

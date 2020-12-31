@@ -1,0 +1,214 @@
+import jpype
+import konlpy 
+from konlpy.tag import Hannanum
+import pandas as pd
+import nltk
+import numpy as np
+import re
+
+df = pd.read_excel('C:/Users/HYS/Desktop/크롤링 최종버전/중등 최종 데이터.xlsx')
+df_list = df.values.tolist()
+df_col = list([col for col in df])
+np.array(df['Title+Question'].tolist())
+list(np.array(df['Title+Question'].tolist()))
+abc=list(np.array(df['Title+Question'].tolist()))
+for i in range(0,len(abc)):
+    abc[i]= abc[i].replace("ㄴㅂ","노발")
+    abc[i]= abc[i].replace("ㅍㅂ","풀발")
+    abc[i]= abc[i].replace("ㅈㅈ","자지")
+    abc[i]= abc[i].replace("ㅂㅈ","보지")
+    abc[i]= abc[i].replace("ㅅㅅ","섹스")
+    abc[i]= abc[i].replace("ㄲㅊ","꼬추")
+    abc[i]= abc[i].replace("ㄱㅊ","꼬추")
+    abc[i]= abc[i].replace("고추","꼬추")
+    abc[i]= abc[i].replace("ㅈㅇ","자위")
+    abc[i]= abc[i].replace("자ㅇ","자위")
+    abc[i]= abc[i].replace("ㄴㅋ","노콘")
+    abc[i]= abc[i].replace("ㅋㄷ","콘돔")
+    abc[i]= abc[i].replace("ㄳ","가슴")
+    abc[i]= abc[i].replace("ㄱㅅ","가슴")
+    abc[i]= abc[i].replace("ㅂㄱ","발기")
+
+abcd=pd.DataFrame({'Title+Question':abc})
+galexy_posts = abcd.get('Title+Question')
+
+stop_words=['하다',
+'가',
+'이',
+'에',
+'.',
+'중',
+'는',
+'?',
+'도',
+'를',
+'안',
+'을',
+'있다',
+'제',
+'때',
+'요',
+'이다',
+'되다',
+'은',
+'..',
+'저',
+'인데',
+'정도',
+'2',
+'지금',
+'없다',
+'1',
+'너무',
+'고',
+'...',
+'들',
+'아니다',
+'좀',
+'으로',
+'로',
+'그렇다',
+'부터',
+'않다',
+'그',
+'많이',
+'가다',
+'까지',
+'다',
+'근데',
+'나다',
+'에서',
+'한',
+'하고',
+'것',
+'만',
+'ㅠㅠ',
+'어떻다',
+'말',
+'진짜',
+'알다',
+'(',
+')',
+'더',
+'전',
+'학년',
+'적',
+'생각',
+'받다',
+'랑',
+'못',
+'달',
+'이고',
+'이제',
+'모르다',
+'가요',
+'끄다',
+'??',
+'인가요',
+'그래서',
+'게',
+'계속',
+'인',
+'3',
+'그리고',
+'거',
+'6',
+'그냥',
+'내공',
+'한번',
+'오다',
+'아직',
+'안녕하다',
+'왜',
+'서',
+'들다',
+'문제',
+'쯤',
+'싶다',
+'의',
+'나',
+'조금',
+'한테',
+'번',
+'면',
+'질문',
+'에는',
+'5',
+'초',
+'요즘',
+'씩',
+'때문',
+'또',
+'이랑',
+'거의',
+'답변',
+'막',
+'몇',
+'과',
+'뭐',
+'혹시',
+'이렇다',
+'약',
+'다른',
+'하',
+'수',
+'부분',
+'정말',
+'방법',
+'이나',
+'엄청',
+'맞다',
+'원래',
+'갑자기',
+'돼다',
+'오늘',
+'두',
+'이에요',
+'\xa0',
+'후',
+'같다',
+',',
+'보다',
+'\n',
+ '\n\n'           
+]
+
+from konlpy.tag import Okt
+Okt=Okt()
+from collections import Counter
+galexy_nouns = []
+for post in galexy_posts:
+    for noun in Okt.morphs(post,stem=True):
+        if noun not in stop_words:
+            galexy_nouns.append(noun)
+
+from collections import Counter
+num_top_nouns = 1000
+galexy_nouns_counter = Counter(galexy_nouns)
+galexy_top_nouns = dict(galexy_nouns_counter.most_common(num_top_nouns))
+
+galexy_word2id = {w: i for i, w in enumerate(galexy_top_nouns.keys())}
+galexy_id2word = {i: w for i, w in enumerate(galexy_top_nouns.keys())}
+
+galexy_posts=list(galexy_posts)
+
+galexy_sentences_nouns = []
+for sentence in galexy_posts:
+    sentence_nouns = Okt.morphs(sentence,stem=True)
+    galexy_sentences_nouns.append(sentence_nouns)
+
+galexy_adjacent_matrix = np.zeros((num_top_nouns, num_top_nouns), int)
+for sentence in galexy_sentences_nouns:
+    for wi, i in galexy_word2id.items():
+        if wi in sentence:
+            for wj, j in galexy_word2id.items():
+                if i != j and wj in sentence:
+                    galexy_adjacent_matrix[i][j] += 1
+galexy_adjacent_matrix
+
+column_names=list(galexy_id2word.values())
+row_names=list(galexy_id2word.values())
+
+df = pd.DataFrame(galexy_adjacent_matrix, columns=column_names, index=row_names)
+
+df.to_excel('C:/Users/HYS/Desktop/크롤링 최종버전/중등 1000x1000 인접행렬.xlsx)
