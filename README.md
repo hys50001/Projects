@@ -1,7 +1,7 @@
 # 학교 수업 Projects
 -------------
 
-### 1. Text Mining과 Social Network Analysis 기법을 활용한청소년 관심도 기반으로 한 성교육 방향 제언
+### 1. Text Mining과 Social Network Analysis 기법을 활용한 청소년 관심도 기반으로 한 성교육 방향 제언
 
 - 2020 데이터마이닝 수업
 - Python, Gephi 시각화 활용
